@@ -10,11 +10,13 @@ provider "google" {
 
 resource "google_compute_network" "vpc_network" {
   name = "terraform-network"
+  # network    = module.network.network_name
+  # subnetwork = module.network.subnets_names[0]
 }
 
 resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
-  machine_type = "f1-micro"
+  machine_type = var.machine_types["dev"]
   tags         = ["web", "dev"]
 
   provisioner "local-exec" {
@@ -67,8 +69,38 @@ resource "google_compute_instance" "another_instance" {
   }
 
   network_interface {
-    network = google_compute_network.vpc_network.self_link
+    # network = google_compute_network.vpc_network.self_link
+    network    = module.network.network_name
+    subnetwork = module.network.subnets_names[0]
     access_config {
     }
+  }
+}
+
+module "network" {
+  source  = "terraform-google-modules/network/google"
+  version = "2.0.2"
+
+  network_name = "terraform-vpc-network"
+  project_id   = var.project
+
+  subnets = [
+    {
+      subnet_name   = "subnet-01"
+      subnet_ip     = var.cidrs[0]
+      subnet_region = var.region
+    },
+    {
+      subnet_name   = "subnet-02"
+      subnet_ip     = var.cidrs[1]
+      subnet_region = var.region
+
+      subnet_private_access = "true"
+    },
+  ]
+
+  secondary_ranges = {
+    subnet-01 = []
+    subnet-02 = []
   }
 }
