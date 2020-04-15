@@ -28,7 +28,7 @@ variable "environment" {
 variable "machine_types" {
   type    = map
   default = {
-    dev  = "f1-micro"
+    dev  = "n1-standard-1"
     test = "n1-highcpu-32"
     prod = "n1-highcpu-32"
   }
