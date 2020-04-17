@@ -1,0 +1,29 @@
+{
+  "peliculas": [
+    {
+      "id": 1,
+      "nombre": "El sexto sentido",
+      "director": "M. Night",
+      "clasificacion": "Drama"
+    },
+    {
+      "id": 2,
+      "nombre": "Pulp Fiction",
+      "director": "Tarantino",
+      "clasificacion": "Acción"
+    }
+  ],
+  "clasificaciones": [
+    {
+      "nombre": "Drama",
+      "id": 1
+    },
+    {
+      "nombre": "Acción",
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

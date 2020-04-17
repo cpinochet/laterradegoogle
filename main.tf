@@ -26,11 +26,11 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     network = google_compute_network.default.name
     access_config {
-    #  nat_ip = google_compute_address.vm_static_ip.address
+      nat_ip = google_compute_address.vm_static_ip.address
     }
   }
 }
 
-# resource "google_compute_address" "vm_static_ip" {
-#   name = "terraform-static-ip"
-# }
+resource "google_compute_address" "vm_static_ip" {
+  name = "terraform-static-ip"
+}
